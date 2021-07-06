@@ -24,3 +24,5 @@ build/**
 *.iws
 classes/**
 target/**
+
+secrets/project.properties

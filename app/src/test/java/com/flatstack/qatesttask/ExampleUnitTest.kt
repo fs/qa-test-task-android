@@ -1,4 +1,4 @@
-package com.itis.qatesttask
+package com.flatstack.qatesttask
 
 import org.junit.Test
 
