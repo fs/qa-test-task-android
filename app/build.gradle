@@ -70,7 +70,6 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
     implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
     implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     debugImplementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
     // endregion
 

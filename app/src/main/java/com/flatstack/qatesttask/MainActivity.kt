@@ -15,7 +15,7 @@ import com.flatstack.qatesttask.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     private val binding: ActivityMainBinding by viewBinding()
-    private lateinit var navController : NavController
+    private lateinit var navController: NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,19 +23,18 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController =
             (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
                 .navController
-        val appBarConfiguration = AppBarConfiguration(topLevelDestinationIds =
-        setOf(
-            R.id.newsFragment,
-            R.id.categoryFragment,
-            R.id.settingsFragment
-        ),
+        val appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(
+                R.id.newsFragment,
+                R.id.categoryFragment,
+                R.id.settingsFragment
+            ),
             fallbackOnNavigateUpListener = ::onSupportNavigateUp
         )
-        with(binding){
+        with(binding) {
             bottomNavigationView.setupWithNavController(navController)
         }
         setupActionBarWithNavController(navController, appBarConfiguration)
-
 
 
     }
