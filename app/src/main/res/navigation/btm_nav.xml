@@ -8,16 +8,16 @@
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.flatstack.qatesttask.NewsFragment"
-        android:label="News"
+        android:label="@string/news"
         tools:layout="@layout/fragment_news" />
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.flatstack.qatesttask.CategoryFragment"
-        android:label="Categories"
+        android:label="@string/categories"
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.flatstack.qatesttask.SettingsFragment"
-        android:label="Settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
