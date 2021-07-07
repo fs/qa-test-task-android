@@ -1,11 +1,11 @@
-package com.flatstack.qatesttask.presentation.viewmodel
+package com.flatstack.qatesttask.feature.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.data.guardiannews.model.GuardianResponse
+import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianRetrofit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,6 +1,5 @@
 package com.flatstack.qatesttask.data.guardiannews.retrofit
 
-import com.flatstack.qatesttask.BuildConfig
 import com.flatstack.qatesttask.BuildConfig.THE_GUARDIAN_BASE_URL
 import com.flatstack.qatesttask.data.guardiannews.extentions.addQueriesToInterceptor
 import okhttp3.Interceptor
@@ -21,6 +20,11 @@ class GuardianHttpService(private val api_key: String) {
     fun getBearerAuthorizationInterceptor() = Interceptor {
         it.addQueriesToInterceptor(
             "api-key" to api_key
+        )
+    }
+    fun getFormatInterceptor() = Interceptor {
+        it.addQueriesToInterceptor(
+            "format" to "json"
         )
     }
 
@@ -44,5 +48,4 @@ class GuardianHttpService(private val api_key: String) {
         retrofit.create(
             GuardianRetrofit::class.java
         )
-
 }

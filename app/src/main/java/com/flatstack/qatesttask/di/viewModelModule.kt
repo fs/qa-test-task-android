@@ -1,6 +1,5 @@
-package com.flatstack.qatesttask.presentation.viewmodel
+package com.flatstack.qatesttask.feature.viewmodel
 
-import org.koin.android.compat.ScopeCompat.viewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

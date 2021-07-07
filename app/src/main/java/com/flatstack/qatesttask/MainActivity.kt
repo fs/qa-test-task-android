@@ -3,11 +3,11 @@ package com.flatstack.qatesttask
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.flatstack.qatesttask.data.guardiannews.guardianModule
+import com.flatstack.qatesttask.data.guardiannews.di.guardianModule
 import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.databinding.ActivityMainBinding
-import com.flatstack.qatesttask.presentation.viewmodel.MainActivityViewModel
-import com.flatstack.qatesttask.presentation.viewmodel.viewModelModule
+import com.flatstack.qatesttask.feature.viewmodel.MainActivityViewModel
+import com.flatstack.qatesttask.feature.viewmodel.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onStart() {
         super.onStart()
+        // TODO: TEST
         viewModel.getSection(
             "sport",
             1,
