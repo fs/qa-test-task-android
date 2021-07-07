@@ -18,6 +18,7 @@ android {
         if (projectPropertiesFile.exists())
             projectProperties.load(new FileInputStream(projectPropertiesFile))
 
+
         buildConfigField "String", "API_KEY", projectProperties['api_key']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
