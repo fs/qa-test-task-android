@@ -12,6 +12,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        buildConfigField ("String", "THE_GUARDIAN_BASE_URL", '"https://content.guardianapis.com"')
 
         def projectPropertiesFile = rootProject.file("secrets/project.properties")
         def projectProperties = new Properties()
