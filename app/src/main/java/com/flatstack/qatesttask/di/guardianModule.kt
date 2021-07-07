@@ -2,6 +2,7 @@ package com.flatstack.qatesttask.data.guardiannews.di
 
 import com.flatstack.qatesttask.BuildConfig.API_KEY
 import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianHttpService
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -30,9 +31,7 @@ val guardianModule = module {
             HttpLoggingInterceptor().apply {
                 setLevel(HttpLoggingInterceptor.Level.BASIC)
             },
-            get(named("pageSizeInterceptor")),
-            get(named("bearerAuthorizationInterceptor")),
-            get(named("formatInterceptor")),
+            *getAll<Interceptor>().toTypedArray(),
         )
     }
 }
