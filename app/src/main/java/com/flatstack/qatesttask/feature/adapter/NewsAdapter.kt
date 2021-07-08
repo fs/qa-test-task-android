@@ -15,14 +15,14 @@ class NewsAdapter(
     private val onBottomReachedListener: () -> Unit = {},
 ) : ListAdapter<PostDto, PostHolder>(PostDiffCallback) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
-        return PostHolder.builder(
+        return PostHolder.newInstance(
             parent,
             onClickListener
         )
     }
 
     override fun onBindViewHolder(holder: PostHolder, position: Int) {
-        if (currentList.size - 1 == position) {
+        if (currentList.lastIndex == position) {
             onBottomReachedListener()
         }
         holder.bind(getItem(position))
@@ -43,9 +43,10 @@ class PostHolder(
     private val container: ElementNewsEntryBinding,
     val onClickListener: ((PostDto) -> Unit)
 ) :
+
     RecyclerView.ViewHolder(container.root) {
     companion object {
-        fun builder(parent: ViewGroup, onClickListener: ((PostDto) -> Unit)): PostHolder {
+        fun newInstance(parent: ViewGroup, onClickListener: ((PostDto) -> Unit)): PostHolder {
             val bind = ElementNewsEntryBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
