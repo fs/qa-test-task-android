@@ -1,8 +1,7 @@
-package com.flatstack.qatesttask.data.guardiannews.di
+package com.flatstack.qatesttask.di
 
 import com.flatstack.qatesttask.BuildConfig.API_KEY
 import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianHttpService
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
@@ -14,8 +13,12 @@ val guardianModule = module {
     }
     single {
         get<GuardianHttpService>().getService(
-            get<GuardianHttpService>().getBaseRetrofit(get<OkHttpClient>())
+            get<GuardianHttpService>().getBaseRetrofit(
+                get(named("guardianOkHttpClient")))
         )
+    }
+    factory(named("thumbnailInterceptor")) {
+        get<GuardianHttpService>().getThumbnailInterceptor()
     }
     factory(named("pageSizeInterceptor")) {
         get<GuardianHttpService>().getPageSizeInterceptor()
@@ -26,12 +29,20 @@ val guardianModule = module {
     factory(named("bearerAuthorizationInterceptor")) {
         get<GuardianHttpService>().getBearerAuthorizationInterceptor()
     }
-    factory {
+    factory(named("loggingInterceptor")) {
+        HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BASIC)
+        }
+    }
+    factory(named("guardianOkHttpClient")) {
         get<GuardianHttpService>().getClient(
-            HttpLoggingInterceptor().apply {
-                setLevel(HttpLoggingInterceptor.Level.BASIC)
-            },
-            *getAll<Interceptor>().toTypedArray(),
+            listOf(
+                get<HttpLoggingInterceptor>(named("loggingInterceptor")),
+                get(named("pageSizeInterceptor")),
+                get(named("formatInterceptor")),
+                get(named("bearerAuthorizationInterceptor")),
+                get(named("thumbnailInterceptor"))
+            )
         )
     }
 }

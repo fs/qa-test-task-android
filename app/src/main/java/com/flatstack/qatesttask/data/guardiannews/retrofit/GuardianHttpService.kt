@@ -27,9 +27,14 @@ class GuardianHttpService(private val api_key: String) {
             "format" to "json"
         )
     }
+    fun getThumbnailInterceptor() = Interceptor {
+        it.addQueriesToInterceptor(
+            "show-fields" to "thumbnail"
+        )
+    }
 
     fun getClient(
-        vararg interceptors: Interceptor
+        interceptors: Collection<Interceptor>
     ): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(THE_GUARDIAN_TIMEOUT, TimeUnit.SECONDS).apply {
             for (interceptor in interceptors) {

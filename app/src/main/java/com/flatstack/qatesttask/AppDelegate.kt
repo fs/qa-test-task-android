@@ -1,7 +1,7 @@
 package com.flatstack.qatesttask
 
 import android.app.Application
-import com.flatstack.qatesttask.data.guardiannews.di.guardianModule
+import com.flatstack.qatesttask.di.guardianModule
 import com.flatstack.qatesttask.feature.viewmodel.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
