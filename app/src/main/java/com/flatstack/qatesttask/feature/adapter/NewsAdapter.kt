@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.databinding.ElementNewsEntryBinding
 import com.flatstack.qatesttask.feature.model.PostDto
 import com.squareup.picasso.Picasso
@@ -21,7 +22,7 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: PostHolder, position: Int) {
-        if (currentList.size-1 == position){
+        if (currentList.size - 1 == position) {
             onBottomReachedListener()
         }
         holder.bind(getItem(position))
@@ -38,8 +39,10 @@ class NewsAdapter(
     }
 }
 
-class PostHolder(private val container: ElementNewsEntryBinding,
-                val onClickListener: ((PostDto) -> Unit)) :
+class PostHolder(
+    private val container: ElementNewsEntryBinding,
+    val onClickListener: ((PostDto) -> Unit)
+) :
     RecyclerView.ViewHolder(container.root) {
     companion object {
         fun builder(parent: ViewGroup, onClickListener: ((PostDto) -> Unit)): PostHolder {
@@ -53,13 +56,13 @@ class PostHolder(private val container: ElementNewsEntryBinding,
     }
     fun bind(postDto: PostDto) {
         container.tvNewsElementTitle.text = postDto.title
-        container.root.setOnClickListener{
+        container.root.setOnClickListener {
             onClickListener(postDto)
         }
         Picasso.with(container.root.context)
             .load(postDto.thumbnailUrl)
-            //.placeholder(R.)
-            //.error(R.drawable.user_placeholder_error)
+            .placeholder(R.drawable.ic_the_guardian)
+            .error(R.drawable.ic_the_guardian)
             .into(container.ivNewsElementThumbnail)
     }
 }

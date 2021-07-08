@@ -13,17 +13,17 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
-        android:text="Title"
-        android:textColor="@color/black"
+        android:text="@string/title_placeholder"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toEndOf="@+id/card_view_news_element_thumbnail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
+        android:id="@+id/card_view_news_element_thumbnail"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
@@ -38,11 +38,11 @@
 
         <ImageView
             android:id="@+id/iv_news_element_thumbnail"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/ic_launcher_background"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            tools:srcCompat="@drawable/ic_the_guardian" />
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.flatstack.qatesttask.di
 
 import com.flatstack.qatesttask.BuildConfig.API_KEY
 import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianHttpService
-import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -14,7 +13,8 @@ val guardianModule = module {
     single {
         get<GuardianHttpService>().getService(
             get<GuardianHttpService>().getBaseRetrofit(
-                get(named("guardianOkHttpClient")))
+                get(named("guardianOkHttpClient"))
+            )
         )
     }
     factory(named("thumbnailInterceptor")) {
