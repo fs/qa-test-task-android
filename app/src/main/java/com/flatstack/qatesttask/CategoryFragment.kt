@@ -15,26 +15,27 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment : Fragment(R.layout.fragment_category) {
 
-    private val sectionsAdaper = SectionsRecyclerAdapter()
+    private val sectionsAdapter = SectionsRecyclerAdapter()
     private val binding: FragmentCategoryBinding by viewBinding()
     private val categoriesVM: CategoryFragmentViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        categoriesVM.getInfo()
         initRecycler()
         addDataset()
     }
 
     private fun initRecycler(){
         binding.sectionsRw.apply {
-            adapter = sectionsAdaper
+            adapter = sectionsAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun addDataset(){
-        val data = categoriesVM.getInfo().value
-        if (data!=null){
-            sectionsAdaper.submitData(data)
+        categoriesVM.categories.observe(viewLifecycleOwner){
+            val data = it
+            sectionsAdapter.submitData(data)
         }
 
 

@@ -34,6 +34,7 @@ class SectionsRecyclerAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun submitData(data: List<String>){
         categories = data
+        notifyDataSetChanged()
 
     }
 

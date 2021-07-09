@@ -16,18 +16,17 @@ class CategoryFragmentViewModel(private val retrofit: GuardianRetrofit):ViewMode
 
     private lateinit var section: CoolResponseBase
     private val sections: MutableLiveData<List<String>> = MutableLiveData()
+    val categories: LiveData<List<String>> = sections
 
-     fun getInfo():LiveData<List<String>>{
-        val sectionNames:ArrayList<String> = ArrayList()
+     fun getInfo(){
+        var sectionNames:List<String> = ArrayList()
 
         viewModelScope.launch(Dispatchers.IO) {
            section = retrofit.getSections()
-           for (i in section.response.results){
-               sectionNames.add(i.webTitle)
-           }
+           sectionNames = section.response.results.map { it.webTitle }
            sections.postValue(sectionNames)
         }
-        return sections
+
     }
 
 
