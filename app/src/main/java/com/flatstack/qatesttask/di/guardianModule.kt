@@ -4,6 +4,7 @@ import com.flatstack.qatesttask.BuildConfig.API_KEY
 import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianHttpService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.internal.platform.android.AndroidSocketAdapter.Companion.factory
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
