@@ -1,14 +1,13 @@
-package com.flatstack.qatesttask.feature.viewmodel
+package com.flatstack.qatesttask.feature.splash_screen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.flatstack.qatesttask.feature.PreferenceRepository
-import com.flatstack.qatesttask.feature.PreferencesKeys
+import com.flatstack.qatesttask.repository.DARK_THEME_MODE_KEY
+import com.flatstack.qatesttask.repository.PreferenceRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
-
 class SplashScreenViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
     private val _darkThemeIsActive: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -18,15 +17,7 @@ class SplashScreenViewModel(private val preferenceRepository: PreferenceReposito
         viewModelScope.launch {
             Timber.e("START")
             _darkThemeIsActive.value =
-                preferenceRepository.getCurrentPropertyValue(PreferencesKeys.DARK_THEME_MODE)
+                preferenceRepository.getCurrentPropertyValue(DARK_THEME_MODE_KEY)
         }
     }
-    /* fun launch(action: suspend (Boolean)-> Unit){
-        viewModelScope.launch {
-            Timber.e("START")
-            preferenceRepository.setPropertyChangeListener(PreferencesKeys.DARK_THEME_MODE,
-                this,
-                action)
-        }
-    }*/
 }

@@ -1,11 +1,11 @@
-package com.flatstack.qatesttask
+package com.flatstack.qatesttask.feature.splash_screen
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import com.flatstack.qatesttask.feature.viewmodel.SplashScreenViewModel
+import com.flatstack.qatesttask.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 

@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask
+package com.flatstack.qatesttask.feature.news
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.databinding.FragmentNewsBinding
-import com.flatstack.qatesttask.feature.adapter.NewsAdapter
-import com.flatstack.qatesttask.feature.viewmodel.NewsFragmentViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.InternalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,7 +55,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 binding.floatingActionButtonGetMoreNews.hide()
             }
         }
-        viewModel.requestIsOngoing.observe(viewLifecycleOwner) {
+        viewModel.requestIsLoading.observe(viewLifecycleOwner) {
             binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
         }
         Timber.e("request")

@@ -1,9 +1,8 @@
 package com.flatstack.qatesttask.di
 
 import android.content.Context
-import androidx.datastore.dataStore
 import com.flatstack.qatesttask.dataStore
-import com.flatstack.qatesttask.feature.PreferenceRepository
+import com.flatstack.qatesttask.repository.PreferenceRepository
 import org.koin.dsl.module
 
 val preferencesModule = module {
