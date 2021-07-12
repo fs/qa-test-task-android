@@ -19,55 +19,71 @@ class NewsFragmentViewModel(
     private val retrofit: GuardianRetrofit,
     private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
+    private val _defaultLanguage = Language.ENGLISH
+    private var _currentLanguage: Language = _defaultLanguage
+
     private val _currentNewsList: MutableLiveData<Set<PostDto>> = MutableLiveData()
     private val _currentPageInfo: MutableLiveData<GuardianInfo> = MutableLiveData()
     private val _currentPageNumber: MutableLiveData<Int> = MutableLiveData()
-    private val _currentLanguage: MutableLiveData<Language> = MutableLiveData()
+    private val _requestIsOngoing: MutableLiveData<Boolean> = MutableLiveData()
 
-    private var defaultLanguage = Language.ENGLISH
-
+    val requestIsOngoing: LiveData<Boolean> = _requestIsOngoing
     val currentPageInfo: LiveData<GuardianInfo> = _currentPageInfo
     val currentNewsList: LiveData<Set<PostDto>> = _currentNewsList
-    val currentPageNumber: LiveData<Int> = _currentPageNumber
 
     init {
         viewModelScope.launch(Dispatchers.Main) {
-            preferenceRepository.getFirstPropertyValue(
+            preferenceRepository.getCurrentPropertyValue(
                 PreferencesKeys.LANG
             )?.let {
-                _currentLanguage.value = ((Language.resolveLanguage(it)) ?: defaultLanguage)
+                _currentLanguage = Language.resolveLanguage(it) ?: _defaultLanguage
             }
         }
     }
-
-    fun getSection(section: String, page: Int, exceptionHandler: (IOException) -> Unit) {
+    fun getInitialSection(section: String, exceptionHandler: (IOException) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                if (_currentPageInfo.value?.pages ?: 1 >= page) {
-                    val info = retrofit.getSectionNewsList(
-                        page,
-                        section,
-                        _currentLanguage.value?.langName ?: defaultLanguage.langName
-                    ).info
-                    _currentNewsList.postValue(
-                        (_currentNewsList.value ?: setOf()).plus(
-                            info.results.map {
-                                PostDto(
-                                    it.id,
-                                    it.title,
-                                    it.webUrl,
-                                    it.additionalFields?.thumbnailUrl ?: "missing"
-                                )
-                            }
-                        )
-                    )
-                    _currentPageNumber.postValue(page)
-                    _currentPageInfo.postValue(info)
-                }
-            } catch (e: IOException) {
-                Timber.e("io exception")
-                exceptionHandler.invoke(e)
+            preferenceRepository.getCurrentPropertyValue(
+                PreferencesKeys.LANG
+            )?.let {
+                _currentLanguage = Language.resolveLanguage(it) ?: _defaultLanguage
             }
+            getSection(section, _currentPageNumber.value ?: 1, exceptionHandler)
+        }
+    }
+    fun getNextSection(section: String, exceptionHandler: (IOException) -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            getSection(section, ((_currentPageNumber.value ?: 0) + 1), exceptionHandler)
+        }
+    }
+    private suspend fun getSection(section: String, page: Int, exceptionHandler: (IOException) -> Unit) {
+        try {
+            _requestIsOngoing.postValue(true)
+            if (_currentPageInfo.value?.pages ?: 1 >= page) {
+                val info = retrofit.getSectionNewsList(
+                    page,
+                    section,
+                    _currentLanguage.langName
+                ).info
+                _currentNewsList.postValue(
+                    (_currentNewsList.value ?: setOf()).plus(
+                        info.results.map {
+                            PostDto(
+                                it.id,
+                                it.title,
+                                it.webUrl,
+                                it.additionalFields?.thumbnailUrl ?: "missing"
+                            )
+                        }
+                    )
+                )
+                _currentPageNumber.postValue(page)
+                _currentPageInfo.postValue(info)
+            }
+        } catch (e: IOException) {
+            Timber.e("io exception")
+            exceptionHandler.invoke(e)
+        } finally {
+            _requestIsOngoing.postValue(false)
         }
     }
 }

@@ -39,7 +39,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             VERTICAL
         )
         recyclerView.addItemDecoration(dividerItemDecoration)
-
         val newsAdapter = NewsAdapter(
             onClickListener = {
                 Timber.d("click")
@@ -57,20 +56,18 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 binding.floatingActionButtonGetMoreNews.hide()
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.getSection(
+        viewModel.requestIsOngoing.observe(viewLifecycleOwner) {
+            binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
+        }
+        Timber.e("request")
+        viewModel.getInitialSection(
             "world",
-            (viewModel.currentPageNumber.value ?: 1),
             httpExceptionHandler
         )
         // TODO: get section from preferences
         binding.floatingActionButtonGetMoreNews.setOnClickListener {
-            viewModel.getSection(
+            viewModel.getNextSection(
                 "world",
-                (viewModel.currentPageNumber.value ?: 1) + 1,
                 httpExceptionHandler
             )
         }

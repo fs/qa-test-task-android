@@ -9,26 +9,22 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
     fun setDarkModeValue(darkMode: Boolean) {
-        observeOnUIThread {
+        viewModelScope.launch {
             preferenceRepository.setProperty(PreferencesKeys.DARK_THEME_MODE, darkMode)
         }
     }
     fun setDarkModeChangeCallback(callback: suspend (Boolean) -> Unit) {
-        observeOnUIThread {
+        viewModelScope.launch {
             preferenceRepository.setPropertyChangeListener(
                 PreferencesKeys.DARK_THEME_MODE,
+                this,
                 callback
             )
         }
     }
     fun setLangValue(lang: Language) {
-        observeOnUIThread {
-            preferenceRepository.setProperty(PreferencesKeys.LANG, lang.langName)
-        }
-    }
-    private fun observeOnUIThread(action: suspend () -> Unit) {
         viewModelScope.launch {
-            action()
+            preferenceRepository.setProperty(PreferencesKeys.LANG, lang.langName)
         }
     }
 }
