@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Qatesttask">
         <activity
-            android:name=".feature.splash_screen.SplashActivity"
+            android:name=".feature.splashscreen.SplashActivity"
             android:theme="@style/Theme.Qatesttask.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

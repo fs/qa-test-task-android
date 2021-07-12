@@ -1,11 +1,12 @@
 package com.flatstack.qatesttask.repository
 
-import com.flatstack.qatesttask.data.guardiannews.model.GuardianResponse
+import com.flatstack.qatesttask.data.guardiannews.model.GuardianInfo
+import com.flatstack.qatesttask.data.guardiannews.model.Language
 
 interface NewsRepository {
-    suspend fun getSectionNewsList(
+    suspend fun getNewsListPageInfo(
         page: Int,
         section: String,
-        lang: String
-    ): GuardianResponse
+        lang: Language
+    ): GuardianInfo
 }

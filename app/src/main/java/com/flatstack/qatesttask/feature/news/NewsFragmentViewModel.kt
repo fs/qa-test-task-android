@@ -19,8 +19,8 @@ class NewsFragmentViewModel(
     private val newsRepository: NewsRepository,
     private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
-    private var _currentLanguage: Language = Language.default
-    private var _currentPageNumber = 1
+    private var currentLanguage: Language = Language.default
+    private var currentPageNumber = 1
 
     private val _currentNewsList: MutableLiveData<Set<PostDto>> = MutableLiveData()
     private val _currentPageInfo: MutableLiveData<GuardianInfo> = MutableLiveData()
@@ -33,23 +33,23 @@ class NewsFragmentViewModel(
     fun getInitialSection(section: String, exceptionHandler: (IOException) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             figureOutLanguage()
-            getSection(section, _currentPageNumber, exceptionHandler)
+            getSection(section, currentPageNumber, exceptionHandler)
         }
     }
     fun getNextSection(section: String, exceptionHandler: (IOException) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            getSection(section, (_currentPageNumber + 1), exceptionHandler)
+            getSection(section, currentPageNumber++, exceptionHandler)
         }
     }
     private suspend fun getSection(section: String, page: Int, exceptionHandler: (IOException) -> Unit) {
         try {
             _requestIsLoading.postValue(true)
             if (_currentPageInfo.value?.pages ?: 1 >= page) {
-                val info = newsRepository.getSectionNewsList(
+                val info = newsRepository.getNewsListPageInfo(
                     page,
                     section,
-                    _currentLanguage.langName
-                ).info
+                    currentLanguage
+                )
                 _currentNewsList.postValue(
                     (_currentNewsList.value ?: setOf()).plus(
                         info.results.map {
@@ -62,7 +62,7 @@ class NewsFragmentViewModel(
                         }
                     )
                 )
-                _currentPageNumber = page
+                currentPageNumber = page
                 _currentPageInfo.postValue(info)
             }
         } catch (e: IOException) {
@@ -76,7 +76,7 @@ class NewsFragmentViewModel(
         preferenceRepository.getCurrentPropertyValue<String>(
             LANG_KEY
         )?.let {
-            _currentLanguage = Language.resolveLanguage(it)
+            currentLanguage = Language.resolveLanguage(it)
         }
     }
 }

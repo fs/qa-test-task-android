@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask.feature.splash_screen
+package com.flatstack.qatesttask.feature.splashscreen
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP

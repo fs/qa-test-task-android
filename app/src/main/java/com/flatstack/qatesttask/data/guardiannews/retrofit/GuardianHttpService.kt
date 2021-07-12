@@ -2,7 +2,6 @@ package com.flatstack.qatesttask.data.guardiannews.retrofit
 
 import com.flatstack.qatesttask.BuildConfig.THE_GUARDIAN_BASE_URL
 import com.flatstack.qatesttask.data.guardiannews.extentions.addQueriesToInterceptor
-import com.flatstack.qatesttask.repository.NewsRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -47,7 +46,7 @@ class GuardianHttpService(private val api_key: String) {
         .baseUrl(THE_GUARDIAN_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    fun getService(retrofit: Retrofit): NewsRepository =
+    fun getService(retrofit: Retrofit): GuardianService =
         retrofit.create(
             GuardianService::class.java
         )

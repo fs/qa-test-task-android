@@ -32,9 +32,9 @@ class PreferenceRepository(private val dataStore: DataStore<Preferences>) {
 
         dataStore.data
             .flowOn(Dispatchers.IO)
-            .onEach {
+            .onEach { preferences ->
                 figureOutKey<T>(preference)?.let { key ->
-                    it[key]?.let { v -> action(v) }
+                    preferences[key]?.let { action(it) }
                 }
             }
             .launchIn(scope)

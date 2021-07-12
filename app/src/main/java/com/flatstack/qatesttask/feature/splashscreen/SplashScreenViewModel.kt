@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask.feature.splash_screen
+package com.flatstack.qatesttask.feature.splashscreen
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
