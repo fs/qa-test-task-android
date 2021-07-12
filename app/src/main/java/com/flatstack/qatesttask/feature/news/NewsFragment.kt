@@ -3,6 +3,7 @@ package com.flatstack.qatesttask.feature.news
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -40,7 +41,10 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         val newsAdapter = NewsAdapter(
             onClickListener = {
-                Timber.d("click")
+                NewsFragmentDirections
+                    .actionNewsFragmentToBrowserFragment(it.url).let { directions ->
+                        findNavController().navigate(directions)
+                    }
             },
             onBottomReachedListener = {
                 Timber.d("the bottom had been reached")
