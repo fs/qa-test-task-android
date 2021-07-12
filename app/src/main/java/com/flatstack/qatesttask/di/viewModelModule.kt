@@ -10,4 +10,5 @@ val viewModelModule = module {
     viewModel { NewsFragmentViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
+    viewModel { ListFragmentViewModel(get()) }
 }
