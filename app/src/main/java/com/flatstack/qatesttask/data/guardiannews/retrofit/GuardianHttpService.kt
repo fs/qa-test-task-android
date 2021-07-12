@@ -32,7 +32,6 @@ class GuardianHttpService(private val api_key: String) {
             "show-fields" to "thumbnail"
         )
     }
-
     fun getClient(
         interceptors: Collection<Interceptor>
     ): OkHttpClient = OkHttpClient.Builder()
@@ -42,15 +41,13 @@ class GuardianHttpService(private val api_key: String) {
             }
         }
         .build()
-
     fun getBaseRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .client(client)
         .baseUrl(THE_GUARDIAN_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-    fun getService(retrofit: Retrofit): GuardianRetrofit =
+    fun getService(retrofit: Retrofit): GuardianService =
         retrofit.create(
-            GuardianRetrofit::class.java
+            GuardianService::class.java
         )
 }

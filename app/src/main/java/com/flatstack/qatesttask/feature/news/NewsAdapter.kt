@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask.feature.adapter
+package com.flatstack.qatesttask.feature.news
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.databinding.ElementNewsEntryBinding
-import com.flatstack.qatesttask.feature.model.PostDto
+import com.flatstack.qatesttask.feature.news.model.PostDto
 import com.squareup.picasso.Picasso
 
 class NewsAdapter(
@@ -32,7 +32,6 @@ class NewsAdapter(
         override fun areItemsTheSame(oldItem: PostDto, newItem: PostDto): Boolean {
             return oldItem == newItem
         }
-
         override fun areContentsTheSame(oldItem: PostDto, newItem: PostDto): Boolean {
             return oldItem.id == newItem.id
         }

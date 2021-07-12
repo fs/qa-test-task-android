@@ -14,6 +14,6 @@ data class GuardianPost(
     @SerializedName("webPublicationDate")
     val publicationDate: String,
     @SerializedName("fields")
-    val additionalFields: GuardianAdditionalInfo
+    val additionalFields: GuardianAdditionalInfo?
 
 )

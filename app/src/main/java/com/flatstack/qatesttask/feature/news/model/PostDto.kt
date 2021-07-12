@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask.feature.model
+package com.flatstack.qatesttask.feature.news.model
 
 data class PostDto(
     val id: String,
