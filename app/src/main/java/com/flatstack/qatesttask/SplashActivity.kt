@@ -17,7 +17,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewModel.darkThemeIsActive.observe(this) {
             AppCompatDelegate.setDefaultNightMode(
-                if (it) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
+                if (it == true) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
             )
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             intent.flags = FLAG_ACTIVITY_CLEAR_TOP
