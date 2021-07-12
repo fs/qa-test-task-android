@@ -13,13 +13,14 @@ val guardianModule = module {
         GuardianHttpService(API_KEY)
     }
     single {
-        NewsRepositoryImpl(
-            get<GuardianHttpService>().run {
-                getService(
-                    getBaseRetrofit(get(named("guardianOkHttpClient")))
-                )
-            }
-        ) as NewsRepository
+        get<GuardianHttpService>().run {
+            getService(
+                getBaseRetrofit(get(named("guardianOkHttpClient")))
+            )
+        }
+    }
+    single {
+        NewsRepositoryImpl(get()) as NewsRepository
     }
     factory(named("thumbnailInterceptor")) {
         get<GuardianHttpService>().getThumbnailInterceptor()
