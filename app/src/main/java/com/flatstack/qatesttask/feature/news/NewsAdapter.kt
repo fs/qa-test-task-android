@@ -14,6 +14,7 @@ class NewsAdapter(
     private val onClickListener: (PostDto) -> Unit = {},
     private val onBottomReachedListener: () -> Unit = {},
 ) : ListAdapter<PostDto, PostHolder>(PostDiffCallback) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostHolder {
         return PostHolder.newInstance(
             parent,

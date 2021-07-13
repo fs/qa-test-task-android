@@ -18,6 +18,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
+
     private val binding: FragmentNewsBinding by viewBinding()
     private val viewModel: NewsFragmentViewModel by viewModel()
     private val httpExceptionHandler: (IOException) -> Unit = { exception ->
