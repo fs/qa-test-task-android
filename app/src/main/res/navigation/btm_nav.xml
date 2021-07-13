@@ -26,7 +26,7 @@
     <fragment
         android:id="@+id/browserFragment"
         android:name="com.flatstack.qatesttask.feature.browser.BrowserFragment"
-        android:label="BrowserFragment" >
+        android:label="@string/browser" >
         <argument
             android:name="url"
             app:argType="string" />

@@ -19,7 +19,6 @@ import java.net.UnknownHostException
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
     private val binding: FragmentNewsBinding by viewBinding()
-
     private val viewModel: NewsFragmentViewModel by viewModel()
     private val httpExceptionHandler: (IOException) -> Unit = { exception ->
         when (exception) {
@@ -29,7 +28,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 Snackbar.make(binding.root, "Timeout", Snackbar.LENGTH_LONG).show()
         }
     }
-
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,8 +40,8 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         val newsAdapter = NewsAdapter(
             onClickListener = {
                 NewsFragmentDirections
-                    .actionNewsFragmentToBrowserFragment(it.url).let { directions ->
-                        findNavController().navigate(directions)
+                    .actionNewsFragmentToBrowserFragment(it.url).let {
+                        findNavController().navigate(it)
                     }
             },
             onBottomReachedListener = {
