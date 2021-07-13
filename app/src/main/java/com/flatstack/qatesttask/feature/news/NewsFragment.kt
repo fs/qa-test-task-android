@@ -3,6 +3,7 @@ package com.flatstack.qatesttask.feature.news
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -17,8 +18,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
-    private val binding: FragmentNewsBinding by viewBinding()
 
+    private val binding: FragmentNewsBinding by viewBinding()
     private val viewModel: NewsFragmentViewModel by viewModel()
     private val httpExceptionHandler: (IOException) -> Unit = { exception ->
         when (exception) {
@@ -28,7 +29,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 Snackbar.make(binding.root, "Timeout", Snackbar.LENGTH_LONG).show()
         }
     }
-
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,7 +40,10 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         val newsAdapter = NewsAdapter(
             onClickListener = {
-                Timber.d("click")
+                NewsFragmentDirections
+                    .actionNewsFragmentToBrowserFragment(it.url).let {
+                        findNavController().navigate(it)
+                    }
             },
             onBottomReachedListener = {
                 Timber.d("the bottom had been reached")

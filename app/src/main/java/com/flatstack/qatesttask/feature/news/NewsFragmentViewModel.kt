@@ -19,6 +19,7 @@ class NewsFragmentViewModel(
     private val newsRepository: NewsRepository,
     private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
+
     private var currentLanguage: Language = Language.default
     private var currentPageNumber = 1
 

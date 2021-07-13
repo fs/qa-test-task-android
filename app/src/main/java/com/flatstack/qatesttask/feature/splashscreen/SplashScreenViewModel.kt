@@ -9,6 +9,7 @@ import com.flatstack.qatesttask.repository.PreferenceRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 class SplashScreenViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
+
     private val _darkThemeIsActive: MutableLiveData<Boolean> = MutableLiveData()
 
     val darkThemeIsActive: LiveData<Boolean> = _darkThemeIsActive

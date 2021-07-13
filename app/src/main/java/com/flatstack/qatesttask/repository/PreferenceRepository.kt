@@ -16,6 +16,7 @@ const val DARK_THEME_MODE_KEY = "darkTheme"
 const val LANG_KEY = "lang"
 
 class PreferenceRepository(private val dataStore: DataStore<Preferences>) {
+
     suspend fun <T> setProperty(preference: String, value: T) {
         dataStore
             .edit {
