@@ -37,11 +37,15 @@ class SectionsRecyclerAdapter(private val listener:OnItemClickListener): ListAda
         when (holder) {
             is SectionsViewHolder -> holder.bind(category)
         }
-        holder.itemView.setOnClickListener {
+        holder.itemView.let {
             (it as MaterialCardView).apply {
                 isChecked = category.isChecked
+            }
+        }
+        holder.itemView.setOnClickListener {
+            (it as MaterialCardView).apply {
                 category.isChecked = !category.isChecked
-
+                isChecked = category.isChecked
             }
 
         }
