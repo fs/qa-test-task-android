@@ -8,19 +8,22 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.flatstack.qatesttask.R
-import com.flatstack.qatesttask.data.guardiannews.model.GuardianResponse
+import com.flatstack.qatesttask.data.guardiannews.model.Category
 import com.google.android.material.card.MaterialCardView
 
-data class  Category(var title: String, var isChecked: Boolean)
-private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>(){
+
+private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
     override fun areItemsTheSame(oldItem: Category, newItem: Category) =
         oldItem.title == newItem.title
 
     override fun areContentsTheSame(oldItem: Category, newItem: Category) =
         oldItem == newItem
 }
-class SectionsRecyclerAdapter(private val listener:OnItemClickListener): ListAdapter<Category, RecyclerView.ViewHolder>(
-    DIFF_CALLBACK) {
+
+class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
+    ListAdapter<Category, RecyclerView.ViewHolder>(
+        DIFF_CALLBACK
+    ) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return SectionsViewHolder(

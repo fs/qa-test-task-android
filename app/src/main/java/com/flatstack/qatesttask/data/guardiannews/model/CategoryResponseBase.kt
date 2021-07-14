@@ -2,8 +2,8 @@ package com.flatstack.qatesttask.data.guardiannews.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CoolResponseBase (
+data class CategoryResponseBase (
         @SerializedName("response")
-        val response : CoolResponse
+        val response : CategoryResponse
 
 )

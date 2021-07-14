@@ -14,5 +14,5 @@ interface GuardianRetrofit {
     ): GuardianResponse
 
     @GET("/sections")
-    suspend fun getSections(): CoolResponseBase
+    suspend fun getSections(): CategoryResponseBase
 }
