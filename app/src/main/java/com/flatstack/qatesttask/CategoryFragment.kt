@@ -4,6 +4,7 @@ package com.flatstack.qatesttask
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
