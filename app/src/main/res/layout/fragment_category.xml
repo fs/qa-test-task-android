@@ -8,8 +8,8 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/sections_rv"
-        android:layout_width="match_parent"
+        android:id="@+id/rv_sections"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

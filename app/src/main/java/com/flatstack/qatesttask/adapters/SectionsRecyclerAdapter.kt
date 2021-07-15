@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.data.guardiannews.model.Category
+import com.flatstack.qatesttask.databinding.SectionsRecyclerElemBinding
 import com.google.android.material.card.MaterialCardView
 
 
@@ -21,47 +22,39 @@ private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
 }
 
 class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
-    ListAdapter<Category, RecyclerView.ViewHolder>(
-        DIFF_CALLBACK
-    ) {
+    ListAdapter<Category, SectionsRecyclerAdapter.SectionsViewHolder>(DIFF_CALLBACK) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    private lateinit var elem: Category
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionsViewHolder {
         return SectionsViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.sections_recycler_elem,
+            SectionsRecyclerElemBinding.inflate(
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val category = getItem(position)
-        when (holder) {
-            is SectionsViewHolder -> holder.bind(category)
-        }
-        holder.itemView.let {
-            (it as MaterialCardView).apply {
-                isChecked = category.isChecked
-            }
-        }
-        holder.itemView.setOnClickListener {
-            (it as MaterialCardView).apply {
-                category.isChecked = !category.isChecked
-                isChecked = category.isChecked
-            }
+    override fun onBindViewHolder(holder: SectionsViewHolder, position: Int) {
+        elem = getItem(position)
+        holder.bind(elem)
 
-        }
     }
 
 
-    inner class SectionsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
-        View.OnClickListener {
-
-        private val category = itemView.findViewById<TextView>(R.id.category_tv)
+    inner class SectionsViewHolder(private val container: SectionsRecyclerElemBinding) :
+        View.OnClickListener,
+        RecyclerView.ViewHolder(container.root) {
 
         fun bind(categoryText: Category) {
-            category.text = categoryText.title
+            container.categoryTv.text = categoryText.title
+
+            itemView.let {
+                (it as MaterialCardView).apply {
+                    isChecked = elem.isChecked
+                }
+            }
         }
 
         init {
@@ -76,7 +69,6 @@ class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
 
         }
 
-
     }
 
 
@@ -84,4 +76,5 @@ class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
         fun onItemClick(position: Int)
 
     }
+
 }

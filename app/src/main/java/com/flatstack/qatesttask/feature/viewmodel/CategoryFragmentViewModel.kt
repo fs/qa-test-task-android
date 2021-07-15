@@ -32,7 +32,7 @@ class CategoryFragmentViewModel(private val retrofit: GuardianRetrofit):ViewMode
         categories.value?.let { categories ->
             val item = categories[position]
             val newCategories =categories.toMutableList().also {
-                it[position] = item
+                it[position] = item.copy(isChecked = !item.isChecked)
             }
             sections.value = newCategories
         }

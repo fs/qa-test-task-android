@@ -16,31 +16,29 @@ class CategoryFragment : Fragment(R.layout.fragment_category),
 
     private val sectionsAdapter = SectionsRecyclerAdapter(this)
     private val binding: FragmentCategoryBinding by viewBinding()
-    private val categoriesVM: CategoryFragmentViewModel by viewModel()
-
+    private val viewModel: CategoryFragmentViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        categoriesVM.getInfo()
+        viewModel.getInfo()
         initRecycler()
         addDataset()
     }
 
     private fun initRecycler() {
-        binding.sectionsRv.apply {
+        binding.rvSections.apply {
             adapter = sectionsAdapter
             layoutManager = LinearLayoutManager(context)
         }
     }
 
     private fun addDataset() {
-        categoriesVM.categories.observe(viewLifecycleOwner) {
-            val data = it
-            sectionsAdapter.submitList(data)
+        viewModel.categories.observe(viewLifecycleOwner) {
+            sectionsAdapter.submitList(it)
         }
     }
 
     override fun onItemClick(position: Int) {
-        categoriesVM.checkCategory(position)
+        viewModel.checkCategory(position)
     }
 
 }
