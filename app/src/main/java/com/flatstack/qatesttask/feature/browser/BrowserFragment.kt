@@ -1,5 +1,6 @@
 package com.flatstack.qatesttask.feature.browser
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,5 +15,9 @@ class BrowserFragment : Fragment(R.layout.fragment_news_browser) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.webViewMain.loadUrl(args.url)
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        args.nextUrl?.let { binding.webViewMain.loadUrl(it) }
     }
 }

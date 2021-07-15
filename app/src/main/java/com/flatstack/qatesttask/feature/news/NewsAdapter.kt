@@ -41,9 +41,8 @@ class NewsAdapter(
 class PostHolder(
     private val container: ElementNewsEntryBinding,
     val onClickListener: ((PostDto) -> Unit)
-) :
+) : RecyclerView.ViewHolder(container.root) {
 
-    RecyclerView.ViewHolder(container.root) {
     companion object {
         fun newInstance(parent: ViewGroup, onClickListener: ((PostDto) -> Unit)): PostHolder {
             val bind = ElementNewsEntryBinding.inflate(

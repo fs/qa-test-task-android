@@ -8,6 +8,7 @@ import androidx.preference.SwitchPreferenceCompat
 import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.data.guardiannews.model.Language
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.IllegalArgumentException
 
 class SettingsFragment : PreferenceFragmentCompat() {
     private val viewModel: SettingsViewModel by viewModel()
@@ -26,10 +27,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         findPreference<ListPreference>("language")
             ?.setOnPreferenceChangeListener { _, newValue ->
-                Language.resolveLanguage(newValue.toString())?.let {
-                    viewModel.setLangValue(it)
+                val language = Language.resolveLanguage(newValue.toString())
+                viewModel.setLangValue(language)
+                when (language) {
+                    Language.UKRAINIAN -> throw IllegalArgumentException()
+                    else -> return@setOnPreferenceChangeListener true
                 }
-                return@setOnPreferenceChangeListener true
             }
     }
 }
