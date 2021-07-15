@@ -10,8 +10,7 @@ import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianRetrofit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
-class CategoryFragmentViewModel(private val retrofit: GuardianRetrofit):ViewModel() {
+class CategoryFragmentViewModel(private val retrofit: GuardianRetrofit): ViewModel() {
 
     private lateinit var section: CategoryResponseBase
     private val sections: MutableLiveData<List<Category>> = MutableLiveData()

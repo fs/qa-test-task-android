@@ -24,7 +24,6 @@ private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
 class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
     ListAdapter<Category, SectionsRecyclerAdapter.SectionsViewHolder>(DIFF_CALLBACK) {
 
-    private lateinit var elem: Category
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionsViewHolder {
         return SectionsViewHolder(
@@ -37,8 +36,7 @@ class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
     }
 
     override fun onBindViewHolder(holder: SectionsViewHolder, position: Int) {
-        elem = getItem(position)
-        holder.bind(elem)
+        holder.bind(getItem(position))
 
     }
 
@@ -47,14 +45,10 @@ class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
         View.OnClickListener,
         RecyclerView.ViewHolder(container.root) {
 
-        fun bind(categoryText: Category) {
-            container.categoryTv.text = categoryText.title
+        fun bind(category: Category) {
+            container.categoryTv.text = category.title
 
-            itemView.let {
-                (it as MaterialCardView).apply {
-                    isChecked = elem.isChecked
-                }
-            }
+            (itemView as? MaterialCardView)?.run { isChecked = category.isChecked }
         }
 
         init {

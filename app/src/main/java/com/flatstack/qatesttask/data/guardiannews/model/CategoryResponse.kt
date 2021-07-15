@@ -3,7 +3,6 @@ package com.flatstack.qatesttask.data.guardiannews.model
 import com.google.gson.annotations.SerializedName
 
 data class CategoryResponse(
-
     @SerializedName("status")
     val status : String,
     @SerializedName("userTier")
@@ -12,5 +11,4 @@ data class CategoryResponse(
     val total : Int,
     @SerializedName("results")
     val results : List<Results>
-
 )
