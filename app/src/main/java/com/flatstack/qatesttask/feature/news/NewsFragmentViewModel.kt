@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.flatstack.qatesttask.data.guardiannews.model.GuardianInfo
 import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.feature.news.model.PostDto
-import com.flatstack.qatesttask.repository.LANG_KEY
 import com.flatstack.qatesttask.repository.NewsRepository
 import com.flatstack.qatesttask.repository.PreferenceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.IOException
+import java.util.Locale
 
 class NewsFragmentViewModel(
     private val newsRepository: NewsRepository,
@@ -74,10 +74,14 @@ class NewsFragmentViewModel(
         }
     }
     private suspend fun figureOutLanguage() {
+        // proper version
+        /*
         preferenceRepository.getCurrentPropertyValue<String>(
             LANG_KEY
         )?.let {
             currentLanguage = Language.resolveLanguage(it)
         }
+        */
+        currentLanguage = Language.resolveLanguage(Locale.getDefault().language)
     }
 }

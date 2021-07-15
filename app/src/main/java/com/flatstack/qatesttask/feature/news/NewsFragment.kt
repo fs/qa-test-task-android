@@ -18,8 +18,8 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
-
     private val binding: FragmentNewsBinding by viewBinding()
+
     private val viewModel: NewsFragmentViewModel by viewModel()
     private val httpExceptionHandler: (IOException) -> Unit = { exception ->
         when (exception) {
@@ -29,6 +29,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 Snackbar.make(binding.root, "Timeout", Snackbar.LENGTH_LONG).show()
         }
     }
+
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,9 +41,13 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         val newsAdapter = NewsAdapter(
             onClickListener = {
+                var nextPage: String? = null
+                viewModel.currentNewsList.value?.run {
+                    nextPage = this.toList()[indexOf(it) + 1].url
+                }
                 NewsFragmentDirections
-                    .actionNewsFragmentToBrowserFragment(it.url).let {
-                        findNavController().navigate(it)
+                    .actionNewsFragmentToBrowserFragment(it.url, nextPage).let { directions ->
+                        findNavController().navigate(directions)
                     }
             },
             onBottomReachedListener = {
