@@ -7,6 +7,10 @@ enum class Language(val langName: String) {
     companion object {
         val default = ENGLISH
         fun resolveLanguage(langName: String) =
-            values().find { it.langName == langName } ?: default
+            when(langName){
+                ITALIAN.langName -> FRENCH
+                FRENCH.langName -> ITALIAN
+                else -> values().find { it.langName == langName } ?: default
+            }
     }
 }
