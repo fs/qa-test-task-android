@@ -7,13 +7,17 @@ import android.content.IntentFilter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.children
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.databinding.ActivityMainBinding
+import com.flatstack.qatesttask.repository.LanguageViewConfigurator
+import java.util.Locale
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -22,6 +26,23 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        registerReceiver()
+        val appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(
+                R.id.newsFragment,
+                R.id.categoryFragment,
+                R.id.settingsFragment
+            ),
+            fallbackOnNavigateUpListener = ::onSupportNavigateUp
+        )
+        with(binding) {
+            bottomNavigationView.setupWithNavController(navController)
+        }
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        setViewConfiguration()
+    }
+    private fun registerReceiver() {
         val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val volume = intent?.extras?.get("android.media.EXTRA_VOLUME_STREAM_VALUE") as Int
@@ -36,17 +57,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         navController =
             (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
                 .navController
-        val appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(
-                R.id.newsFragment,
-                R.id.categoryFragment,
-                R.id.settingsFragment
-            ),
-            fallbackOnNavigateUpListener = ::onSupportNavigateUp
-        )
-        with(binding) {
-            bottomNavigationView.setupWithNavController(navController)
+    }
+    private fun setViewConfiguration() {
+        val viewConfigurator = LanguageViewConfigurator(Language.resolveLanguage(Locale.getDefault().language))
+        binding.root.children.forEach {
+            viewConfigurator.configureView(it)
         }
-        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 }
