@@ -27,9 +27,13 @@ class GuardianHttpService(private val api_key: String) {
             "format" to "json"
         )
     }
-
+    fun getThumbnailInterceptor() = Interceptor {
+        it.addQueriesToInterceptor(
+            "show-fields" to "thumbnail"
+        )
+    }
     fun getClient(
-        vararg interceptors: Interceptor
+        interceptors: Collection<Interceptor>
     ): OkHttpClient = OkHttpClient.Builder()
         .connectTimeout(THE_GUARDIAN_TIMEOUT, TimeUnit.SECONDS).apply {
             for (interceptor in interceptors) {
@@ -37,15 +41,13 @@ class GuardianHttpService(private val api_key: String) {
             }
         }
         .build()
-
     fun getBaseRetrofit(client: OkHttpClient): Retrofit = Retrofit.Builder()
         .client(client)
         .baseUrl(THE_GUARDIAN_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-    fun getService(retrofit: Retrofit): GuardianRetrofit =
+    fun getService(retrofit: Retrofit): GuardianService =
         retrofit.create(
-            GuardianRetrofit::class.java
+            GuardianService::class.java
         )
 }

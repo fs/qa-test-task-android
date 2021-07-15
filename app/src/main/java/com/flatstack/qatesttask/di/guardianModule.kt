@@ -1,9 +1,9 @@
-package com.flatstack.qatesttask.data.guardiannews.di
+package com.flatstack.qatesttask.di
 
 import com.flatstack.qatesttask.BuildConfig.API_KEY
 import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianHttpService
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
+import com.flatstack.qatesttask.repository.NewsRepository
+import com.flatstack.qatesttask.repository.NewsRepositoryImpl
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -13,9 +13,17 @@ val guardianModule = module {
         GuardianHttpService(API_KEY)
     }
     single {
-        get<GuardianHttpService>().getService(
-            get<GuardianHttpService>().getBaseRetrofit(get<OkHttpClient>())
-        )
+        get<GuardianHttpService>().run {
+            getService(
+                getBaseRetrofit(get(named("guardianOkHttpClient")))
+            )
+        }
+    }
+    single {
+        NewsRepositoryImpl(get()) as NewsRepository
+    }
+    factory(named("thumbnailInterceptor")) {
+        get<GuardianHttpService>().getThumbnailInterceptor()
     }
     factory(named("pageSizeInterceptor")) {
         get<GuardianHttpService>().getPageSizeInterceptor()
@@ -26,12 +34,20 @@ val guardianModule = module {
     factory(named("bearerAuthorizationInterceptor")) {
         get<GuardianHttpService>().getBearerAuthorizationInterceptor()
     }
-    factory {
+    factory(named("loggingInterceptor")) {
+        HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BASIC)
+        }
+    }
+    factory(named("guardianOkHttpClient")) {
         get<GuardianHttpService>().getClient(
-            HttpLoggingInterceptor().apply {
-                setLevel(HttpLoggingInterceptor.Level.BASIC)
-            },
-            *getAll<Interceptor>().toTypedArray(),
+            listOf(
+                get<HttpLoggingInterceptor>(named("loggingInterceptor")),
+                get(named("pageSizeInterceptor")),
+                get(named("formatInterceptor")),
+                get(named("bearerAuthorizationInterceptor")),
+                get(named("thumbnailInterceptor"))
+            )
         )
     }
 }
