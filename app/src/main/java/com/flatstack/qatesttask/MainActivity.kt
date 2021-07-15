@@ -16,7 +16,6 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.databinding.ActivityMainBinding
-import com.flatstack.qatesttask.repository.LanguageViewConfigurator
 import java.util.Locale
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
