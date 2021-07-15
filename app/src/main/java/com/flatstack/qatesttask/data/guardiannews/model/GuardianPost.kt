@@ -3,6 +3,8 @@ package com.flatstack.qatesttask.data.guardiannews.model
 import com.google.gson.annotations.SerializedName
 
 data class GuardianPost(
+    @SerializedName("id")
+    val id: String,
     @SerializedName("webUrl")
     val webUrl: String,
     @SerializedName("sectionName")
@@ -10,5 +12,8 @@ data class GuardianPost(
     @SerializedName("webTitle")
     val title: String,
     @SerializedName("webPublicationDate")
-    val publicationDate: String
+    val publicationDate: String,
+    @SerializedName("fields")
+    val additionalFields: GuardianAdditionalInfo?
+
 )

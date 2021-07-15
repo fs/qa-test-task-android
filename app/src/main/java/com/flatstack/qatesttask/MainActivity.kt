@@ -1,7 +1,7 @@
 package com.flatstack.qatesttask
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     private val binding: ActivityMainBinding by viewBinding()
 
     private lateinit var navController: NavController
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +34,5 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             bottomNavigationView.setupWithNavController(navController)
         }
         setupActionBarWithNavController(navController, appBarConfiguration)
-
     }
 }

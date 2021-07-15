@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.flatstack.qatesttask.NewsFragment"
+        android:name="com.flatstack.qatesttask.feature.news.NewsFragment"
         android:label="@string/news"
-        tools:layout="@layout/fragment_news" />
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_browserFragment"
+            app:destination="@id/browserFragment" />
+    </fragment>
     <fragment
         android:id="@+id/categoryFragment"
         android:name="com.flatstack.qatesttask.CategoryFragment"
@@ -17,7 +21,14 @@
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.flatstack.qatesttask.SettingsFragment"
-        android:label="@string/settings"
-        tools:layout="@layout/fragment_settings" />
+        android:name="com.flatstack.qatesttask.feature.settings.SettingsFragment"
+        android:label="@string/settings" />
+    <fragment
+        android:id="@+id/browserFragment"
+        android:name="com.flatstack.qatesttask.feature.browser.BrowserFragment"
+        android:label="@string/browser" >
+        <argument
+            android:name="url"
+            app:argType="string" />
+    </fragment>
 </navigation>
