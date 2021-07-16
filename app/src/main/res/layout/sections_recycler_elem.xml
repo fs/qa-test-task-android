@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sections_recycler_elem"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/cv_sections_elem_height"
+    android:layout_margin="@dimen/cv_sections_elem_margin"
+    android:checkable="true"
+    android:clickable="true"
+    android:elevation="10dp"
+    android:focusable="true"
+    app:checkedIcon="@drawable/ic_baseline_check_circle_24">
+
+    <TextView
+        android:id="@+id/category_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/cv_sections_elem_margin">
+
+    </TextView>
+
+</com.google.android.material.card.MaterialCardView>
