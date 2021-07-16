@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.onEach
 
 const val DARK_THEME_MODE_KEY = "darkTheme"
 const val LANG_KEY = "lang"
+const val SELECTED_CATEGORIES_KEY = "categories"
 
 class PreferenceRepository(private val dataStore: DataStore<Preferences>) {
 
@@ -51,6 +52,7 @@ class PreferenceRepository(private val dataStore: DataStore<Preferences>) {
         when (key) {
             DARK_THEME_MODE_KEY -> booleanPreferencesKey(DARK_THEME_MODE_KEY) as? Preferences.Key<T>
             LANG_KEY -> stringPreferencesKey(LANG_KEY) as? Preferences.Key<T>
+            SELECTED_CATEGORIES_KEY -> stringPreferencesKey(SELECTED_CATEGORIES_KEY) as? Preferences.Key<T>
             else -> null
         }
 }

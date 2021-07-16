@@ -72,16 +72,9 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
             }
             Timber.e("request")
-            getInitialSection(
-                "world",
-                httpExceptionHandler
-            )
-            // TODO: get section from preferences
+            getInitialSection(httpExceptionHandler)
             binding.floatingActionButtonGetMoreNews.setOnClickListener {
-                getNextSection(
-                    "world",
-                    httpExceptionHandler
-                )
+                getNextSection(httpExceptionHandler)
             }
         }
     }

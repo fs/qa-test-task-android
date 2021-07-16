@@ -8,8 +8,8 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { NewsFragmentViewModel(get()) }
+    viewModel { NewsFragmentViewModel(get(), get()) }
     viewModel { SettingsViewModel(get()) }
     viewModel { SplashScreenViewModel(get()) }
-    viewModel { CategoryFragmentViewModel(get()) }
+    viewModel { CategoryFragmentViewModel(get(), get()) }
 }
