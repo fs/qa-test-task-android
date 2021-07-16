@@ -17,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.flatstack.qatesttask.databinding.ActivityMainBinding
 import com.flatstack.qatesttask.databinding.BtnConfirmBinding
+import com.flatstack.qatesttask.util.LanguageViewConfigurator
 import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {

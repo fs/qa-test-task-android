@@ -1,9 +1,9 @@
 package com.flatstack.qatesttask.di
 
+import com.flatstack.qatesttask.feature.category.viewmodel.CategoryFragmentViewModel
 import com.flatstack.qatesttask.feature.news.NewsFragmentViewModel
 import com.flatstack.qatesttask.feature.settings.SettingsViewModel
 import com.flatstack.qatesttask.feature.splashscreen.SplashScreenViewModel
-import com.flatstack.qatesttask.feature.viewmodel.CategoryFragmentViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

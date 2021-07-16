@@ -1,13 +1,14 @@
-package com.flatstack.qatesttask
+package com.flatstack.qatesttask.feature.category
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.adapters.SectionsRecyclerAdapter
 import com.flatstack.qatesttask.databinding.FragmentCategoryBinding
-import com.flatstack.qatesttask.feature.viewmodel.CategoryFragmentViewModel
+import com.flatstack.qatesttask.feature.category.viewmodel.CategoryFragmentViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CategoryFragment :

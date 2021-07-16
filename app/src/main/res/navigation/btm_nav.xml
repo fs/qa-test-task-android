@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.flatstack.qatesttask.CategoryFragment"
+        android:name="com.flatstack.qatesttask.feature.category.CategoryFragment"
         android:label="@string/categories"
         tools:layout="@layout/fragment_category" />
     <fragment

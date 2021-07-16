@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask.feature.viewmodel
+package com.flatstack.qatesttask.feature.category.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

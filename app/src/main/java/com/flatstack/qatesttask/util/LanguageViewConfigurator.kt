@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask
+package com.flatstack.qatesttask.util
 
 import android.view.View
 import com.flatstack.qatesttask.data.guardiannews.model.Language
