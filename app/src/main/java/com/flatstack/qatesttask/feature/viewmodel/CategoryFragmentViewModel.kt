@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.flatstack.qatesttask.data.guardiannews.model.Category
 import com.flatstack.qatesttask.data.guardiannews.model.CategoryResponseBase
-import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianRetrofit
+import com.flatstack.qatesttask.data.guardiannews.retrofit.GuardianService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class CategoryFragmentViewModel(private val retrofit: GuardianRetrofit): ViewModel() {
+class CategoryFragmentViewModel(private val retrofit: GuardianService): ViewModel() {
 
     private lateinit var section: CategoryResponseBase
     private val sections: MutableLiveData<List<Category>> = MutableLiveData()

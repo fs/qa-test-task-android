@@ -6,7 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CategoryFragment">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_sections"
         android:layout_width="0dp"
