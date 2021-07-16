@@ -6,9 +6,9 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.Gravity
-import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.children
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.flatstack.qatesttask.databinding.ActivityMainBinding
 import com.flatstack.qatesttask.databinding.BtnConfirmBinding
+import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             bottomNavigationView.setupWithNavController(navController)
         }
         setupActionBarWithNavController(navController, appBarConfiguration)
+        setViewConfiguration()
     }
     private fun setUpBroadcastReceiver() {
         val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
@@ -61,5 +63,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
         val filter = IntentFilter().apply { addAction("android.media.VOLUME_CHANGED_ACTION") }
         registerReceiver(broadcastReceiver, filter)
+    }
+    private fun setViewConfiguration() {
+        val viewConfigurator: LanguageViewConfigurator = get()
+        binding.root.children.forEach {
+            viewConfigurator.configureView(it)
+        }
     }
 }

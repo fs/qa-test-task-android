@@ -26,9 +26,9 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
     private val httpExceptionHandler: (IOException) -> Unit = { exception ->
         when (exception) {
             is UnknownHostException ->
-                Snackbar.make(binding.root, "Bad Gateway", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, getString(R.string.bad_gateway_error), Snackbar.LENGTH_LONG).show()
             is SocketTimeoutException ->
-                Snackbar.make(binding.root, "Timeout", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, getString(R.string.timeout_error), Snackbar.LENGTH_LONG).show()
         }
     }
 

@@ -2,7 +2,7 @@
     <string name="app_name">Guardian Reader</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="news">News</string>
-    <string name="categories">Categories</string>
+    <string name="categories">Categorieƨ</string>
     <string name="settings">Settings</string>
     <string name="browser">Neѡs Browser</string>
     <string name="title_placeholder">Title</string>
@@ -12,7 +12,10 @@
     <string name="settings_dark_theme_on_description">active</string>
     <string name="settings_dark_theme_off_description">iпactive</string>
 
-    <string name="settings_language_header">Language</string>
-    <string name="settings_language_selection_title">Languaġe selection</string>
+    <string name="settings_language_header">Languaġe</string>
+    <string name="settings_language_selection_title">Language selection</string>
+
+    <string name="bad_gateway_error">Bad Ǥateway</string>
+    <string name="timeout_error">Timeout</string>
 
 </resources>
