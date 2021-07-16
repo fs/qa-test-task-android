@@ -16,6 +16,8 @@ import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.flatstack.qatesttask.databinding.ActivityMainBinding
 import org.koin.android.ext.android.get
+import java.lang.IllegalArgumentException
+import java.util.Random
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -61,5 +63,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         binding.root.children.forEach {
             viewConfigurator.configureView(it)
         }
+    }
+    private fun crashWithChance(chance: Int): Boolean {
+        val i = Random().nextInt(chance)
+        if (i % chance == 0) {
+            throw IllegalArgumentException()
+        }
+        return true
     }
 }

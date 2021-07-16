@@ -8,7 +8,6 @@ import com.flatstack.qatesttask.data.guardiannews.model.GuardianInfo
 import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.feature.news.model.PostDto
 import com.flatstack.qatesttask.repository.NewsRepository
-import com.flatstack.qatesttask.repository.PreferenceRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -16,7 +15,7 @@ import java.io.IOException
 
 class NewsFragmentViewModel(
     private val newsRepository: NewsRepository,
-    //private val preferenceRepository: PreferenceRepository
+    // private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
 
     private var currentLanguage: Language = Language.default
