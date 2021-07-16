@@ -8,7 +8,6 @@ import androidx.preference.SwitchPreferenceCompat
 import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.data.guardiannews.model.Language
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.IllegalArgumentException
 
 class SettingsFragment : PreferenceFragmentCompat() {
 

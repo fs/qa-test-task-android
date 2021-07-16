@@ -16,6 +16,7 @@ import timber.log.Timber
 import java.io.IOException
 
 const val DEFAULT_SECTION = "world"
+
 class NewsFragmentViewModel(
     private val newsRepository: NewsRepository,
     private val preferenceRepository: PreferenceRepository

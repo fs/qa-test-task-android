@@ -10,9 +10,9 @@ class LanguageViewConfigurator(val language: Language) {
         view.alpha = configuration.opacity
     }
     private enum class LanguageViewConfiguration(val opacity: Float) {
-        RUSSIAN_CONFIGURATION(0.88F),
-        ENGLISH_CONFIGURATION(0.90F),
-        FRENCH_CONFIGURATION(0.93F),
+        ENGLISH_CONFIGURATION(0.95F),
+        RUSSIAN_CONFIGURATION(0.9F),
+        FRENCH_CONFIGURATION(0.85F),
         OTHER(1F);
         companion object {
             fun resolveConfig(language: Language) =

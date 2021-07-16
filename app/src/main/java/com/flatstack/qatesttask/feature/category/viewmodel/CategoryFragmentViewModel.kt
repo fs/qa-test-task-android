@@ -38,11 +38,9 @@ class CategoryFragmentViewModel(
             }
             sections.value = newCategories
         }
-
-
     }
 
-    fun saveCategories(){
+    fun saveCategories() {
         val checkedCategories = categories.value?.filter {
             it.isChecked
         }?.map { it.id }
