@@ -13,11 +13,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.IOException
-import java.util.Locale
 
 class NewsFragmentViewModel(
     private val newsRepository: NewsRepository,
-    private val preferenceRepository: PreferenceRepository
+    //private val preferenceRepository: PreferenceRepository
 ) : ViewModel() {
 
     private var currentLanguage: Language = Language.default
@@ -32,14 +31,14 @@ class NewsFragmentViewModel(
     val currentNewsList: LiveData<Set<PostDto>> = _currentNewsList
 
     fun getInitialSection(section: String, exceptionHandler: (IOException) -> Unit) {
+        _currentNewsList.value = setOf()
         viewModelScope.launch(Dispatchers.IO) {
-            figureOutLanguage()
-            getSection(section, currentPageNumber, exceptionHandler)
+            getSection(section, 1, exceptionHandler)
         }
     }
     fun getNextSection(section: String, exceptionHandler: (IOException) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
-            getSection(section, currentPageNumber++, exceptionHandler)
+            getSection(section, currentPageNumber + 1, exceptionHandler)
         }
     }
     private suspend fun getSection(section: String, page: Int, exceptionHandler: (IOException) -> Unit) {
@@ -73,7 +72,7 @@ class NewsFragmentViewModel(
             _requestIsLoading.postValue(false)
         }
     }
-    private suspend fun figureOutLanguage() {
+    fun setNewsLanguage(language: Language) {
         // proper version
         /*
         preferenceRepository.getCurrentPropertyValue<String>(
@@ -82,6 +81,6 @@ class NewsFragmentViewModel(
             currentLanguage = Language.resolveLanguage(it)
         }
         */
-        currentLanguage = Language.resolveLanguage(Locale.getDefault().language)
+        currentLanguage = language
     }
 }

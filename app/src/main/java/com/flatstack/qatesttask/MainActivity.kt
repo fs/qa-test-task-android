@@ -14,9 +14,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.flatstack.qatesttask.data.guardiannews.model.Language
 import com.flatstack.qatesttask.databinding.ActivityMainBinding
-import java.util.Locale
+import org.koin.android.ext.android.get
 
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
 
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                 .navController
     }
     private fun setViewConfiguration() {
-        val viewConfigurator = LanguageViewConfigurator(Language.resolveLanguage(Locale.getDefault().language))
+        val viewConfigurator: LanguageViewConfigurator = get()
         binding.root.children.forEach {
             viewConfigurator.configureView(it)
         }

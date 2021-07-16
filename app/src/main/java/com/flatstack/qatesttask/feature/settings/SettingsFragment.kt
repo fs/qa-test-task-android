@@ -31,7 +31,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 val language = Language.resolveLanguage(newValue.toString())
                 viewModel.setLangValue(language)
                 when (language) {
-                    Language.UKRAINIAN -> throw IllegalArgumentException()
+                    Language.GERMAN -> throw IllegalArgumentException()
                     else -> return@setOnPreferenceChangeListener true
                 }
             }
