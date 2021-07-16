@@ -13,8 +13,8 @@ import com.google.android.material.button.MaterialButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.random.Random
 
-class CategoryFragment :
-    Fragment(R.layout.fragment_category),
+class CategoryFragment : Fragment(
+    R.layout.fragment_category),
     SectionsRecyclerAdapter.OnItemClickListener {
 
     private val sectionsAdapter = SectionsRecyclerAdapter(this)
@@ -51,7 +51,7 @@ class CategoryFragment :
         confirmButton?.setOnClickListener {
             val criticalFail = Random.nextInt(0, 100)
             if (criticalFail % 5 == 0) {
-                activity?.finish()
+                throw RuntimeException()
             } else {
                 viewModel.saveCategories()
             }

@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         toolbar = binding.toolbar
         val btnConfirmBinding = BtnConfirmBinding.inflate(layoutInflater)
         toolbar.apply {
-            this.addView(btnConfirmBinding.root, androidx.appcompat.widget.Toolbar.LayoutParams(Gravity.END))
+            addView(btnConfirmBinding.root, androidx.appcompat.widget.Toolbar.LayoutParams(Gravity.END))
         }
         setSupportActionBar(toolbar)
         navController =
