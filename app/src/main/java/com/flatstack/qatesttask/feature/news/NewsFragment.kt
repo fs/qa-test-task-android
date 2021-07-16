@@ -11,6 +11,7 @@ import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.databinding.FragmentNewsBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.InternalCoroutinesApi
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.io.IOException
@@ -18,6 +19,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
+
     private val binding: FragmentNewsBinding by viewBinding()
 
     private val viewModel: NewsFragmentViewModel by viewModel()
@@ -39,44 +41,48 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             VERTICAL
         )
         recyclerView.addItemDecoration(dividerItemDecoration)
-        val newsAdapter = NewsAdapter(
-            onClickListener = {
-                var nextPage: String? = null
-                viewModel.currentNewsList.value?.run {
-                    nextPage = this.toList()[indexOf(it) + 1].url
-                }
-                NewsFragmentDirections
-                    .actionNewsFragmentToBrowserFragment(it.url, nextPage).let { directions ->
-                        findNavController().navigate(directions)
+        with(viewModel) {
+            setNewsLanguage(get())
+            val newsAdapter = NewsAdapter(
+                onClickListener = {
+                    var nextPage: String? = null
+                    currentNewsList.value?.run {
+                        nextPage = this.toList()[indexOf(it) + 1].url
                     }
-            },
-            onBottomReachedListener = {
-                Timber.d("the bottom had been reached")
+                    NewsFragmentDirections
+                        .actionNewsFragmentToBrowserFragment(it.url, nextPage).let { directions ->
+                            findNavController().navigate(directions)
+                        }
+                },
+                onBottomReachedListener = {
+                    Timber.d("the bottom had been reached")
+                }
+            )
+            recyclerView.adapter = newsAdapter
+            currentNewsList.observe(viewLifecycleOwner) { list ->
+                if (list.isNotEmpty())
+                    newsAdapter.submitList(list.toList())
             }
-        )
-        recyclerView.adapter = newsAdapter
-        viewModel.currentNewsList.observe(viewLifecycleOwner) { list ->
-            newsAdapter.submitList(list.toList())
-        }
-        viewModel.currentPageInfo.observe(viewLifecycleOwner) {
-            if (it.currentPage == it.pages) {
-                binding.floatingActionButtonGetMoreNews.hide()
+            currentPageInfo.observe(viewLifecycleOwner) {
+                if (it.currentPage == it.pages) {
+                    binding.floatingActionButtonGetMoreNews.hide()
+                }
             }
-        }
-        viewModel.requestIsLoading.observe(viewLifecycleOwner) {
-            binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
-        }
-        Timber.e("request")
-        viewModel.getInitialSection(
-            "world",
-            httpExceptionHandler
-        )
-        // TODO: get section from preferences
-        binding.floatingActionButtonGetMoreNews.setOnClickListener {
-            viewModel.getNextSection(
+            requestIsLoading.observe(viewLifecycleOwner) {
+                binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
+            }
+            Timber.e("request")
+            getInitialSection(
                 "world",
                 httpExceptionHandler
             )
+            // TODO: get section from preferences
+            binding.floatingActionButtonGetMoreNews.setOnClickListener {
+                getNextSection(
+                    "world",
+                    httpExceptionHandler
+                )
+            }
         }
     }
 }
