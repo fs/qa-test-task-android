@@ -4,6 +4,7 @@ import com.flatstack.qatesttask.BuildConfig.THE_GUARDIAN_BASE_URL
 import com.flatstack.qatesttask.data.guardiannews.extentions.addQueriesToInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -21,6 +22,11 @@ class GuardianHttpService(private val api_key: String) {
         it.addQueriesToInterceptor(
             "api-key" to api_key
         )
+    }
+    fun getEncodingInterceptor() = Interceptor {
+        val request = it.request()
+        val req = request.url.toString().replace("%26", "&")
+        it.proceed(Request.Builder().url(req).build())
     }
     fun getFormatInterceptor() = Interceptor {
         it.addQueriesToInterceptor(

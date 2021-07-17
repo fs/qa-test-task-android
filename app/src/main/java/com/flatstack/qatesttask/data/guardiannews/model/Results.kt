@@ -2,16 +2,16 @@ package com.flatstack.qatesttask.data.guardiannews.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Results (
+data class Results(
 
     @SerializedName("id")
-    val id : String,
+    val id: String,
     @SerializedName("webTitle")
-    val webTitle : String,
+    val webTitle: String,
     @SerializedName("webUrl")
-    val webUrl : String,
+    val webUrl: String,
     @SerializedName("apiUrl")
-    val apiUrl : String,
+    val apiUrl: String,
     @SerializedName("editions")
-    val editions : List<Editions>
+    val editions: List<Editions>
 )

@@ -11,6 +11,7 @@ import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.databinding.FragmentNewsBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.InternalCoroutinesApi
+import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.io.IOException
@@ -20,15 +21,17 @@ import java.net.UnknownHostException
 class NewsFragment : Fragment(R.layout.fragment_news) {
 
     private val binding: FragmentNewsBinding by viewBinding()
+
     private val viewModel: NewsFragmentViewModel by viewModel()
     private val httpExceptionHandler: (IOException) -> Unit = { exception ->
         when (exception) {
             is UnknownHostException ->
-                Snackbar.make(binding.root, "Bad Gateway", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, getString(R.string.bad_gateway_error), Snackbar.LENGTH_LONG).show()
             is SocketTimeoutException ->
-                Snackbar.make(binding.root, "Timeout", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, getString(R.string.timeout_error), Snackbar.LENGTH_LONG).show()
         }
     }
+
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,40 +41,41 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             VERTICAL
         )
         recyclerView.addItemDecoration(dividerItemDecoration)
-        val newsAdapter = NewsAdapter(
-            onClickListener = {
-                NewsFragmentDirections
-                    .actionNewsFragmentToBrowserFragment(it.url).let {
-                        findNavController().navigate(it)
+        with(viewModel) {
+            setNewsLanguage(get())
+            val newsAdapter = NewsAdapter(
+                onClickListener = {
+                    var nextPage: String? = null
+                    currentNewsList.value?.run {
+                        nextPage = this.toList()[indexOf(it) + 1].url
                     }
-            },
-            onBottomReachedListener = {
-                Timber.d("the bottom had been reached")
-            }
-        )
-        recyclerView.adapter = newsAdapter
-        viewModel.currentNewsList.observe(viewLifecycleOwner) { list ->
-            newsAdapter.submitList(list.toList())
-        }
-        viewModel.currentPageInfo.observe(viewLifecycleOwner) {
-            if (it.currentPage == it.pages) {
-                binding.floatingActionButtonGetMoreNews.hide()
-            }
-        }
-        viewModel.requestIsLoading.observe(viewLifecycleOwner) {
-            binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
-        }
-        Timber.e("request")
-        viewModel.getInitialSection(
-            "world",
-            httpExceptionHandler
-        )
-        // TODO: get section from preferences
-        binding.floatingActionButtonGetMoreNews.setOnClickListener {
-            viewModel.getNextSection(
-                "world",
-                httpExceptionHandler
+                    NewsFragmentDirections
+                        .actionNewsFragmentToBrowserFragment(it.url, nextPage).let { directions ->
+                            findNavController().navigate(directions)
+                        }
+                },
+                onBottomReachedListener = {
+                    Timber.d("the bottom had been reached")
+                }
             )
+            recyclerView.adapter = newsAdapter
+            currentNewsList.observe(viewLifecycleOwner) { list ->
+                if (list.isNotEmpty())
+                    newsAdapter.submitList(list.toList())
+            }
+            currentPageInfo.observe(viewLifecycleOwner) {
+                if (it.currentPage == it.pages) {
+                    binding.floatingActionButtonGetMoreNews.hide()
+                }
+            }
+            requestIsLoading.observe(viewLifecycleOwner) {
+                binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
+            }
+            Timber.e("request")
+            getInitialSection(httpExceptionHandler)
+            binding.floatingActionButtonGetMoreNews.setOnClickListener {
+                getNextSection(httpExceptionHandler)
+            }
         }
     }
 }

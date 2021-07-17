@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class CategoryResponse(
     @SerializedName("status")
-    val status : String,
+    val status: String,
     @SerializedName("userTier")
-    val userTier : String,
+    val userTier: String,
     @SerializedName("total")
-    val total : Int,
+    val total: Int,
     @SerializedName("results")
-    val results : List<Results>
+    val results: List<Results>
 )

@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
-        android:name="com.flatstack.qatesttask.CategoryFragment"
+        android:name="com.flatstack.qatesttask.feature.category.CategoryFragment"
         android:label="@string/categories"
         tools:layout="@layout/fragment_category" />
     <fragment
@@ -26,9 +26,13 @@
     <fragment
         android:id="@+id/browserFragment"
         android:name="com.flatstack.qatesttask.feature.browser.BrowserFragment"
-        android:label="@string/browser" >
+        android:label="@string/browser">
         <argument
             android:name="url"
             app:argType="string" />
+        <argument
+            android:name="nextUrl"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

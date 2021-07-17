@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.datastore.preferences.preferencesDataStore
 import com.flatstack.qatesttask.di.guardianModule
+import com.flatstack.qatesttask.di.languageModule
 import com.flatstack.qatesttask.di.preferencesModule
 import com.flatstack.qatesttask.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
@@ -25,7 +26,7 @@ class AppDelegate : Application() {
         startKoin {
             androidLogger()
             androidContext(this@AppDelegate)
-            modules(guardianModule, viewModelModule, preferencesModule)
+            modules(guardianModule, viewModelModule, preferencesModule, languageModule)
         }
     }
 }

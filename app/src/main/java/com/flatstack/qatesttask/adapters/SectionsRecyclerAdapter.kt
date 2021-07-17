@@ -3,15 +3,12 @@ package com.flatstack.qatesttask.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.flatstack.qatesttask.R
 import com.flatstack.qatesttask.data.guardiannews.model.Category
 import com.flatstack.qatesttask.databinding.SectionsRecyclerElemBinding
 import com.google.android.material.card.MaterialCardView
-
 
 private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
     override fun areItemsTheSame(oldItem: Category, newItem: Category) =
@@ -23,7 +20,6 @@ private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
 
 class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
     ListAdapter<Category, SectionsRecyclerAdapter.SectionsViewHolder>(DIFF_CALLBACK) {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionsViewHolder {
         return SectionsViewHolder(
@@ -37,9 +33,7 @@ class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
 
     override fun onBindViewHolder(holder: SectionsViewHolder, position: Int) {
         holder.bind(getItem(position))
-
     }
-
 
     inner class SectionsViewHolder(private val container: SectionsRecyclerElemBinding) :
         View.OnClickListener,
@@ -60,15 +54,10 @@ class SectionsRecyclerAdapter(private val listener: OnItemClickListener) :
             if (position != RecyclerView.NO_POSITION) {
                 listener.onItemClick(position)
             }
-
         }
-
     }
-
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
-
     }
-
 }

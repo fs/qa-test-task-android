@@ -27,10 +27,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         findPreference<ListPreference>("language")
             ?.setOnPreferenceChangeListener { _, newValue ->
-                Language.resolveLanguage(newValue.toString())?.let {
-                    viewModel.setLangValue(it)
+                val language = Language.resolveLanguage(newValue.toString())
+                viewModel.setLangValue(language)
+                when (language) {
+                    Language.GERMAN -> throw IllegalArgumentException()
+                    else -> return@setOnPreferenceChangeListener true
                 }
-                return@setOnPreferenceChangeListener true
             }
     }
 }
