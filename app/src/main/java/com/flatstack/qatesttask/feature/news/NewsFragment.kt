@@ -43,21 +43,16 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         recyclerView.addItemDecoration(dividerItemDecoration)
         with(viewModel) {
             setNewsLanguage(get())
-            val newsAdapter = NewsAdapter(
-                onClickListener = {
-                    var nextPage: String? = null
-                    currentNewsList.value?.run {
-                        nextPage = this.toList()[indexOf(it) + 1].url
-                    }
-                    NewsFragmentDirections
-                        .actionNewsFragmentToBrowserFragment(it.url, nextPage).let { directions ->
-                            findNavController().navigate(directions)
-                        }
-                },
-                onBottomReachedListener = {
-                    Timber.d("the bottom had been reached")
+            val newsAdapter = NewsAdapter(onClickListener = {
+                val nextPage: String? = currentNewsList.value?.run {
+                    this.toList()[indexOf(it) + 1].url
                 }
-            )
+                NewsFragmentDirections.actionNewsFragmentToBrowserFragment(it.url, nextPage).let { directions ->
+                    findNavController().navigate(directions)
+                }
+            }, onBottomReachedListener = {
+                Timber.d("the bottom had been reached")
+            })
             recyclerView.adapter = newsAdapter
             currentNewsList.observe(viewLifecycleOwner) { list ->
                 if (list.isNotEmpty())
@@ -69,9 +64,8 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                 }
             }
             requestIsLoading.observe(viewLifecycleOwner) {
-                binding.floatingActionButtonGetMoreNews.isEnabled = (it == false)
+                binding.floatingActionButtonGetMoreNews.isEnabled = it == false
             }
-            Timber.e("request")
             getInitialSection(httpExceptionHandler)
             binding.floatingActionButtonGetMoreNews.setOnClickListener {
                 getNextSection(httpExceptionHandler)

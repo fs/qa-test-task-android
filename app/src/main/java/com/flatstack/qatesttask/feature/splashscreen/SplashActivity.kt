@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.flatstack.qatesttask.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class SplashActivity : AppCompatActivity() {
 
@@ -25,10 +24,5 @@ class SplashActivity : AppCompatActivity() {
             finish()
         }
         viewModel.getDarkThemeStatus()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Timber.e("DESTROY")
     }
 }

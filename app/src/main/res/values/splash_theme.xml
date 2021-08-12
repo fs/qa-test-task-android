@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <style name="Theme.Qatesttask.SplashScreen" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.QATestTask.SplashScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/layer_list_splash_screen</item>
     </style>
 </resources>

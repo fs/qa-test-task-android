@@ -1,6 +1,6 @@
 package com.flatstack.qatesttask.di
 
-import com.flatstack.qatesttask.feature.category.viewmodel.CategoryFragmentViewModel
+import com.flatstack.qatesttask.feature.category.CategoryFragmentViewModel
 import com.flatstack.qatesttask.feature.news.NewsFragmentViewModel
 import com.flatstack.qatesttask.feature.settings.SettingsViewModel
 import com.flatstack.qatesttask.feature.splashscreen.SplashScreenViewModel

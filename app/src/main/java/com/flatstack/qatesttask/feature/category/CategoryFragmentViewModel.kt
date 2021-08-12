@@ -1,4 +1,4 @@
-package com.flatstack.qatesttask.feature.category.viewmodel
+package com.flatstack.qatesttask.feature.category
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,14 +22,13 @@ class CategoryFragmentViewModel(
     val categories: LiveData<List<Category>> = sections
 
     fun getInfo() {
-        var sectionNames: List<Category> = ArrayList()
-
         viewModelScope.launch(Dispatchers.IO) {
             section = retrofit.getSections()
-            sectionNames = section.response.results.map { Category(it.webTitle, it.id, false) }
+            val sectionNames = section.response.results.map { Category(it.webTitle, it.id, false) }
             sections.postValue(sectionNames)
         }
     }
+
     fun checkCategory(position: Int) {
         categories.value?.let { categories ->
             val item = categories[position]
@@ -39,6 +38,7 @@ class CategoryFragmentViewModel(
             sections.value = newCategories
         }
     }
+
     fun saveCategories() {
         val checkedCategories = categories.value?.filter {
             it.isChecked

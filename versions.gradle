@@ -3,7 +3,7 @@ ext {
             coroutines: '1.5.0',
             koin      : '3.1.1',
             kotlin    : '1.5.20',
-            lifecycle : '2.4.0-alpha02',
+            lifecycle : '2.4.0-alpha03',
             navigation: '2.3.5',
             retrofit  : '2.9.0',
             okhttp    : '4.9.1',

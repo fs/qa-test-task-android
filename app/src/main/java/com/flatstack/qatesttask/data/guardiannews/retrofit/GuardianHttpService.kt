@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 
 const val THE_GUARDIAN_TIMEOUT = 30L
 
-class GuardianHttpService(private val api_key: String) {
+class GuardianHttpService(private val apiKey: String) {
 
     fun getPageSizeInterceptor() = Interceptor {
         it.addQueriesToInterceptor(
@@ -20,7 +20,7 @@ class GuardianHttpService(private val api_key: String) {
     }
     fun getBearerAuthorizationInterceptor() = Interceptor {
         it.addQueriesToInterceptor(
-            "api-key" to api_key
+            "api-key" to apiKey
         )
     }
     fun getEncodingInterceptor() = Interceptor {

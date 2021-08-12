@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface GuardianService {
+
     @GET("/search")
     suspend fun getSectionNewsList(
         @Query("page") page: Int,

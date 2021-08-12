@@ -44,12 +44,14 @@ class NewsFragmentViewModel(
             getSection(1, exceptionHandler)
         }
     }
+
     fun getNextSection(exceptionHandler: (IOException) -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             _requestIsLoading.postValue(true)
             getSection(currentPageNumber + 1, exceptionHandler)
         }
     }
+
     private suspend fun getSection(page: Int, exceptionHandler: (IOException) -> Unit) {
         try {
             if (_currentPageInfo.value?.pages ?: 1 >= page) {
@@ -80,6 +82,7 @@ class NewsFragmentViewModel(
             _requestIsLoading.postValue(false)
         }
     }
+
     fun setNewsLanguage(language: Language) {
         // proper version
         /*
