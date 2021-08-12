@@ -8,6 +8,7 @@ import com.flatstack.qatesttask.repository.DARK_THEME_MODE_KEY
 import com.flatstack.qatesttask.repository.PreferenceRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
+
 class SplashScreenViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
 
     private val _darkThemeIsActive: MutableLiveData<Boolean> = MutableLiveData()

@@ -18,11 +18,14 @@ private const val USER_PREFERENCES_NAME = "user_preferences"
 val Context.dataStore by preferencesDataStore(
     name = USER_PREFERENCES_NAME,
 )
+
 class AppDelegate : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
         startKoin {
             androidLogger()
             androidContext(this@AppDelegate)

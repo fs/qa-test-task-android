@@ -20,19 +20,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 if (it) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
             )
         }
-        findPreference<SwitchPreferenceCompat>("dark_theme")
-            ?.setOnPreferenceChangeListener { _, newValue ->
-                viewModel.setDarkModeValue(newValue == true)
-                return@setOnPreferenceChangeListener true
+        findPreference<SwitchPreferenceCompat>("dark_theme")?.setOnPreferenceChangeListener { _, newValue ->
+            viewModel.setDarkModeValue(newValue == true)
+            return@setOnPreferenceChangeListener true
+        }
+        findPreference<ListPreference>("language")?.setOnPreferenceChangeListener { _, newValue ->
+            val language = Language.resolveLanguage(newValue.toString())
+            viewModel.setLangValue(language)
+            when (language) {
+                Language.GERMAN -> throw IllegalArgumentException("Wrong language")
+                else -> return@setOnPreferenceChangeListener true
             }
-        findPreference<ListPreference>("language")
-            ?.setOnPreferenceChangeListener { _, newValue ->
-                val language = Language.resolveLanguage(newValue.toString())
-                viewModel.setLangValue(language)
-                when (language) {
-                    Language.GERMAN -> throw IllegalArgumentException()
-                    else -> return@setOnPreferenceChangeListener true
-                }
-            }
+        }
     }
 }

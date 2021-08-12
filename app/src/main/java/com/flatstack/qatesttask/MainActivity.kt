@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     lateinit var toolbar: androidx.appcompat.widget.Toolbar
 
     private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         toolbar = binding.toolbar
@@ -31,9 +32,8 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
             addView(btnConfirmBinding.root, androidx.appcompat.widget.Toolbar.LayoutParams(Gravity.END))
         }
         setSupportActionBar(toolbar)
-        navController =
-            (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
-                .navController
+        navController = (supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment)
+            .navController
         val appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.newsFragment,
@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         setupActionBarWithNavController(navController, appBarConfiguration)
         setViewConfiguration()
     }
+
     private fun setViewConfiguration() {
         val viewConfigurator: LanguageViewConfigurator = get()
         binding.root.children.forEach {

@@ -7,6 +7,7 @@ import com.flatstack.qatesttask.repository.DARK_THEME_MODE_KEY
 import com.flatstack.qatesttask.repository.LANG_KEY
 import com.flatstack.qatesttask.repository.PreferenceRepository
 import kotlinx.coroutines.launch
+
 class SettingsViewModel(private val preferenceRepository: PreferenceRepository) : ViewModel() {
 
     fun setDarkModeValue(darkMode: Boolean) {
@@ -14,6 +15,7 @@ class SettingsViewModel(private val preferenceRepository: PreferenceRepository) 
             preferenceRepository.setProperty(DARK_THEME_MODE_KEY, darkMode)
         }
     }
+
     fun setDarkModeChangeCallback(callback: suspend (Boolean) -> Unit) {
         viewModelScope.launch {
             preferenceRepository.setPropertyChangeListener(
@@ -23,6 +25,7 @@ class SettingsViewModel(private val preferenceRepository: PreferenceRepository) 
             )
         }
     }
+
     fun setLangValue(lang: Language) {
         viewModelScope.launch {
             preferenceRepository.setProperty(LANG_KEY, lang.langName)
